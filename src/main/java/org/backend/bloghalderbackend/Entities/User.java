@@ -1,7 +1,7 @@
 package org.backend.bloghalderbackend.Entities;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
@@ -11,10 +11,16 @@ import java.util.Collection;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User implements UserDetails {
     @Id
+    @GeneratedValue
     Integer id;
+    @Basic
+    @Column(nullable = false, unique = true, length = 50)
     String email;
+    @Column(nullable = false)
     String name;
     String country;
     String password;
