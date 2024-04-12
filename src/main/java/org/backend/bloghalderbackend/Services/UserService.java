@@ -1,8 +1,10 @@
 package org.backend.bloghalderbackend.Services;
 
 import jakarta.transaction.Transactional;
+import org.backend.bloghalderbackend.DTOs.UserDTO;
 import org.backend.bloghalderbackend.Entities.User;
 import org.backend.bloghalderbackend.Repositories.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,6 +24,11 @@ public class UserService {
     @Transactional
     public void deleteUser(String email) {
         userRepository.removeUserByEmail(email);
+    }
+
+    public UserDTO getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        return new UserDTO(user.getEmail(), user.getName(), user.getCountry());
     }
 }
 
