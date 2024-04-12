@@ -30,5 +30,10 @@ public class UserService {
         User user = userRepository.findByEmail(email).orElseThrow();
         return new UserDTO(user.getEmail(), user.getName(), user.getCountry());
     }
+
+    public UserDTO getUserById(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return new UserDTO(user.getEmail(), user.getName(), user.getCountry());
+    }
 }
 
