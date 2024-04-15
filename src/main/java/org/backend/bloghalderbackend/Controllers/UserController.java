@@ -18,15 +18,10 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("users/")
+    @GetMapping("users")
     public ResponseEntity<List<UserDTO>> getAllUsers()
     {
-        List<UserDTO> users = new ArrayList<>();
-        for (User user: userService.getAllUsers())
-        {
-            users.add(new UserDTO(user.getEmail(), user.getName(), user.getCountry()));
-        }
-        return ResponseEntity.ok(users);
+        return userService.getAllUsers();
     }
 
     @GetMapping("user/{userId}")
