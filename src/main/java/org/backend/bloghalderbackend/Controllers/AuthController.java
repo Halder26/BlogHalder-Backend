@@ -1,6 +1,7 @@
 package org.backend.bloghalderbackend.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.backend.bloghalderbackend.Auth.UpdateRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.backend.bloghalderbackend.Services.AuthService;
@@ -26,4 +27,11 @@ public class AuthController {
     {
         return ResponseEntity.ok(authService.register(request));
     }
+
+    @PutMapping(value = "")
+    public ResponseEntity<?> update(@RequestBody UpdateRequest request)
+    {
+        return authService.update(request);
+    }
+
 }
