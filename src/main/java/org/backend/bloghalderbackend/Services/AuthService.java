@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.backend.bloghalderbackend.Auth.AuthResponse;
 import org.backend.bloghalderbackend.Auth.LoginRequest;
 import org.backend.bloghalderbackend.Auth.RegisterRequest;
+import org.backend.bloghalderbackend.Auth.UpdateRequest;
 import org.backend.bloghalderbackend.Entities.User;
 import org.backend.bloghalderbackend.Jwt.JwtService;
 import org.backend.bloghalderbackend.Repositories.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,5 +46,12 @@ public class AuthService {
                 .token(jwtService.getToken(user))
                 .build();
 
+    }
+    public ResponseEntity<?> update(UpdateRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        user.setName(request.getName());
+        user.setCountry(request.getCountry());
+        userRepository.save(user);
+        return ResponseEntity.ok().build();
     }
 }
